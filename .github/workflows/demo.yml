@@ -29,13 +29,21 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: | # | used to support multiple paths
-            dist
-            package.json
+          path: dist
+          # path: | # | used to support multiple paths
+            # dist
+            # package.json
           #!path/***/*.tmp # to exclude path 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Get build artifacts
+      # download artifacs uploaded by Upload artifacts
+        uses: actions/download-artifact@v4 
+        with:
+          name: dist-files 
+      - name: Output contents
+        run: ls
       - name: Deploy
         run: echo "Deploying..."
