@@ -25,6 +25,14 @@ jobs:
         run: npm ci
       - name: Build website
         run: npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files
+          path: | # | used to support multiple paths
+            dist
+            package.json
+          #!path/***/*.tmp # to exclude path 
   deploy:
     needs: build
     runs-on: ubuntu-latest
